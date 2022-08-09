@@ -50,16 +50,15 @@ public class Metodos_De_Pago {
         }
         WebElement searchbox = driver.findElement(By.name("search_query"));
         searchbox.clear();
-        searchbox.sendKeys("Blouse");
+        searchbox.sendKeys("Printed Dress");
         searchbox.submit();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         assertEquals("Search - My Store", driver.getTitle());
         driver.findElement(By.id("list")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         if (driver.findElement(registerPage).isDisplayed()) {
-            driver.findElement(By.xpath("//*[@id='center_column']/ul/li/div/div/div[3]/div/div[2]/a[1]/span")).click();
+            driver.findElement(By.xpath("//*[@id='center_column']/ul/li[1]/div/div/div[3]/div/div[2]/a[1]/span")).click();
         }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@id='layer_cart']/div[1]/div[2]/div[4]/a/span")).click();
         driver.findElement(By.xpath("//*[@id='center_column']/p[2]/a[1]/span")).click();
@@ -109,6 +108,6 @@ public class Metodos_De_Pago {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@id='HOOK_PAYMENT']/div[2]/div/p/a")).click();
         driver.findElement(By.xpath("//*[@id='cart_navigation']/button/span")).click();
-        JOptionPane.showMessageDialog(null, "caso de prueba: Metodo de pago Cheque exitoso");
+        JOptionPane.showMessageDialog(null, "Caso de prueba: Metodo de pago Cheque exitoso");
     }
 }
