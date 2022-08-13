@@ -42,5 +42,6 @@ public class BusquedaDeArticulo {
         JOptionPane.showMessageDialog(null, "Caso de prueba: Busqueda de articulo exitosa");
 
     }
+    //testing the repos
     
 }
