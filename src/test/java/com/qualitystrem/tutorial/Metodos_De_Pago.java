@@ -37,7 +37,7 @@ public class Metodos_De_Pago {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.className("login")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        // Thread.sleep(2000);
+        //Thread.sleep(2000);
         if (driver.findElement(registerPage).isDisplayed()) {
             WebElement Passwordbox = driver.findElement(By.id("passwd"));
             Passwordbox.clear();

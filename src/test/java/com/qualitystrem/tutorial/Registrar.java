@@ -1,9 +1,5 @@
 package com.qualitystrem.tutorial;
-import static org.junit.Assert.assertEquals;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.swing.JOptionPane;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,8 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
 import org.openqa.selenium.devtools.v100.input.Input;
-
 
 
 
@@ -23,6 +21,9 @@ public class Registrar {
     By Email = By.id("email");
     By Password = By.id("passwd");
     By registerPage = By.xpath("//img[@src='http://automationpractice.com/img/logo.jpg']");
+    By createUser= By.id("customer_firstname");
+    By RegisterButtom=By.id("submitAccount");
+
 
     @Before
 public void SetUp() {
@@ -33,77 +34,89 @@ public void SetUp() {
 
 }
 
-public static String[] generarNombresAleatorios(int cantidad) {
-    
-   
-    String[] nombresAleatorios = new String[cantidad];
-
-    String[] nombres = { "Andrea", "David", "Baldomero", "Balduino", "Baldwin", "Baltasar", "Barry", "Bartolo",
-            "Bartolomé", "Baruc", "Baruj", "Candelaria", "Cándida", "Canela", "Caridad", "Carina", "Carisa",
-            "Caritina", "Carlota", "Baltazar"};
-    String[] apellidos = { "Gomez", "Guerrero", "Cardenas", "Cardiel", "Cardona", "Cardoso", "Cariaga", "Carillo",
-            "Carion", "Castiyo", "Castorena", "Castro", "Grande", "Grangenal", "Grano", "Grasia", "Griego",
-            "Grigalva" };
-
-    for (int i = 0; i < cantidad; i++) {
-        nombresAleatorios[i] = nombres[(int) (Math.floor(Math.random() * ((nombres.length - 1) - 0 + 1) + 0))] + " "
-                + apellidos[(int) (Math.floor(Math.random() * ((apellidos.length - 1) - 0 + 1) + 0))];
-    }
-    return nombresAleatorios;
-}
 @Test
 public void Registrar() {
    
  driver.findElement(By.cssSelector("a.login")).click();
- WebElement EmailBox = driver.findElement(By.name("email_create"));
-EmailBox.clear();
-EmailBox.sendKeys("scampos@gmail.com");
-EmailBox.submit();
+ //Thread.sleep(2000);
+ driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+   if (driver.findElement(registerPage).isDisplayed()) {
+    WebElement EmailBox = driver.findElement(By.name("email_create"));
+    EmailBox.clear();
+    EmailBox.sendKeys("scampos@gmail.com");
+    EmailBox.submit();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+   }
+
+   if (driver.findElement(registerPage).isDisplayed()) {
+    WebElement selectBox=driver.findElement(By.id("uniform-id_gender1"));
+    selectBox.click();
+    driver.findElement(createUser).sendKeys("Steven");;
+    
+    WebElement lastname =driver.findElement(By.name("customer_lastname"));
+    lastname.sendKeys("Campos");
+
+    WebElement passBox = driver.findElement(By.name("passwd"));
+
+    passBox.sendKeys("steven12334");
 
 
-WebElement itemBox =driver.findElement(By.name("uniform-id_gender1"));
-itemBox.click();
-WebElement nameBox = driver.findElement(By.id("customer_firstname"));
-    nameBox.clear();
-    nameBox.sendKeys("Steven");
-WebElement passBox = driver.findElement(By.name("passwd"));
-passBox.clear();
-passBox.sendKeys("steven12334");
+     //DATE BIRTH
+    Select date = new Select(driver.findElement(By.id("days")));
+    String option= "31";
+    date.selectByValue(option);
+    Select month = new Select(driver.findElement(By.id("months")));
+    String monthop="7";
+    month.selectByValue(monthop);
+    Select years = new Select(driver.findElement(By.id("years")));
+    String yearsop="2002";
+    years.selectByValue(yearsop);
 
-//NO SE HACER MESES
-WebElement FirstName =driver.findElement(By.name("firstname"));
-FirstName.clear();
-FirstName.sendKeys("Steven");
-WebElement lastname =driver.findElement(By.name("lastname"));
-lastname.clear();
-lastname.sendKeys("Campos");
+    WebElement selectBox1=driver.findElement(By.id("newsletter"));
+    selectBox1.click();
+    WebElement selectBox2=driver.findElement(By.id("optin"));
+    selectBox2.click();  
 
-WebElement company =driver.findElement(By.name("company"));
-company.clear();
-company.sendKeys("UIA");
-WebElement address1 =driver.findElement(By.name("address1"));
-address1.clear();
-address1.sendKeys("moravia");
-WebElement city =driver.findElement(By.name("city"));
-city.clear();
-city.sendKeys("San Jose");
-///hacer STATE 
-WebElement postcode =driver.findElement(By.name("postcode"));
-city.clear();
-city.sendKeys("102154");
-//HACER COUNTRY
-WebElement otherBox =driver.findElement(By.name("other"));
-otherBox.clear();
-otherBox.sendKeys("other");
-WebElement phoneWebElement =driver.findElement(By.name("phone"));
-phoneWebElement.clear();
-phoneWebElement.sendKeys("87075246");
-WebElement phone_mobileWebElement =driver.findElement(By.name("phone_mobile"));
-phone_mobileWebElement.clear();
-phone_mobileWebElement.sendKeys("87085246");
-driver.findElement(By.id("Register")).click();
+    WebElement CompanyBox = driver.findElement(By.name("company"));
+    CompanyBox.sendKeys("Fidelitas");
+
+    WebElement AddressBox = driver.findElement(By.name("address1"));
+    AddressBox.sendKeys("45 street");
+
+    WebElement AddressBox1 = driver.findElement(By.name("address2"));
+    AddressBox1.sendKeys("New York");
+
+    WebElement city = driver.findElement(By.name("city"));
+    city.sendKeys("New York Place");
+
+    Select idstateBox = new Select(driver.findElement(By.id("id_state")));
+    String idstateop="4";
+    idstateBox.selectByValue(idstateop);
+
+    WebElement postcodeBox = driver.findElement(By.name("postcode"));
+    postcodeBox.sendKeys("11010");
 
 
+    WebElement otherBox = driver.findElement(By.name("other"));
+    otherBox.sendKeys("45 street lane red house ");
+
+    WebElement phoneBox = driver.findElement(By.name("phone"));
+    phoneBox.sendKeys("87078564");
+
+
+    WebElement mobileBox = driver.findElement(By.name("phone_mobile"));
+    mobileBox.sendKeys("84521475");
+
+    WebElement aliasBox = driver.findElement(By.name("alias"));
+    aliasBox.clear();
+    aliasBox.sendKeys("NewYork Home");
+    driver.findElement(RegisterButtom).click();;
+    JOptionPane.showMessageDialog(null, "Caso de prueba: Registrar");
+
+}else {
+    System.out.print("Register page was not found");
+
+   }
 
 }
 
